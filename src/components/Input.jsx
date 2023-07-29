@@ -35,10 +35,8 @@ const Input=()=>{
                 console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                   case 'paused':
-                    console.log('Upload is paused');
                     break;
                   case 'running':
-                    console.log('Upload is running');
                     break;
                 }
               }, 
@@ -117,7 +115,7 @@ const Input=()=>{
         <div className="input">
             <input type="text" placeholder="Type Something" value={text} onChange={e=>setText(e.target.value)}/>
             <div className="send">
-                <img src={Attach} alt=""/>
+                {/* <img src={Attach} alt=""/> */}
                 <input type="file" style={{display:"none"}} id="file" value={img} onChange={e=>setImg(e.target.files[0])}/>
                 <label htmlFor="file">
                     <img src={Add} alt=""/>

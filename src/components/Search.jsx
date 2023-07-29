@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { collection, query, where, getDocs, setDoc, updateDoc, serverTimestamp, doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
+import { ChatContext } from "../context/ChatContext";
 
 
 const Search = () => {
@@ -10,7 +11,7 @@ const Search = () => {
     const [user, setUser] = useState(null);
     const [err, setErr] = useState(false);
     const { currentUser } = useContext(AuthContext)
-
+    const {dispatch} = useContext(ChatContext)
 
     const handleSearch = async () => {
         const q = query(
@@ -23,10 +24,13 @@ const Search = () => {
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
                 setUser(doc.data());
+
             });
         } catch (error) {
             setErr(true)
         }
+
+
 
 
     };
@@ -67,6 +71,7 @@ const Search = () => {
                     },
                     [combinedId + ".date"]: serverTimestamp()
                 });
+                dispatch({type:"CHANGE_USER",payload:user})
 
             }
 
@@ -78,6 +83,7 @@ const Search = () => {
         setUserName("");
 
     }
+
 
 
     return (

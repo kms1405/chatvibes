@@ -347,6 +347,17 @@
                     padding: 10px 15px;
                     color: white;
                     background-color: #8da4f1;
+                    cursor: pointer;
+                    border-radius: 5px;
+                    &:hover{
+                        background-color: #3e35e6;
+                    }
+
+                    &:active {
+                        background-color: #1b1a3b;
+                      }
+
+
                 }
 
             }
