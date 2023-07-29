@@ -25,10 +25,6 @@
 
 
 
-
-
-
-
 .formContainer{
     background-color: #a7bcff;
     height: 100vh;
@@ -80,6 +76,14 @@
                 font-weight: bold;
                 border: none;
                 cursor: pointer;
+                border-radius: 5px;
+                &:hover{
+                    background-color: #3e35e6;
+                }
+
+                &:active {
+                    background-color: #1b1a3b;
+                  }
             }
 
             label{
@@ -331,8 +335,6 @@
 
 
             .send{
-
-
                 display: flex;
                 align-items: center;
                 gap:10px;

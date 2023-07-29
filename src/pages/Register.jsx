@@ -5,9 +5,11 @@ import { useState } from "react";
 import {  ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore"; 
 import { useNavigate,Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+
+
 
 const Register = () => {
-
     const [error, setError] = useState(false);
     const navigate = useNavigate();
 
@@ -19,12 +21,12 @@ const Register = () => {
         const email = e.target[1].value;
         const password = e.target[2].value;
         const file = e.target[3].files[0];
-
+        const id = toast.loading("Please wait...")
 
         try {
+            
             const res = await createUserWithEmailAndPassword(auth, email, password)
             const storageRef = ref(storage, displayName);
-
             const uploadTask = uploadBytesResumable(storageRef, file);
 
             // Register three observers:
@@ -36,13 +38,10 @@ const Register = () => {
             (snapshot) => {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                   case 'paused':
-                    console.log('Upload is paused');
                     break;
                   case 'running':
-                    console.log('Upload is running');
                     break;
                 }
               }, 
@@ -74,7 +73,6 @@ const Register = () => {
 
                         })
 
-                        console.log(typeof(res.user.uid),typeof(displayName),typeof(email),typeof(downloadURL),"collllllllllllleeeeeeeeeeee")
 
                         await setDoc(doc(db,"users",res.user.uid), {
                             uid:res.user.uid,
@@ -84,6 +82,8 @@ const Register = () => {
                         });
 
                         await setDoc(doc(db,"userChats",res.user.uid),{});
+                        toast.update(id, {render: "Your email has been registered successfully", 
+                        type: "success", isLoading: false,autoClose:3000});
                         navigate("/");
                         
                     });
@@ -91,15 +91,17 @@ const Register = () => {
             );
 
         } catch (err) {
+            if (err.toString().includes("email-already-in-use")){
+                err= "Email already Exists"
+            } else if (err.toString().includes("at least 6 characters")) {
+                err = "Password should be at least 6 characters"
+            }
+
             setError(true);
+            toast.update(id, {render: `${err}`, type: "error", isLoading: false,autoClose:5000 });
             return
 
         };
-
-        
-
-
-
     }
 
     return (
@@ -117,10 +119,10 @@ const Register = () => {
                         <span>Add an Avatar</span>
                     </label>
                     <button>Sign Up</button>
-                    {error && <p>Somethong went wrong!!</p>}
                 </form>
                 <p>You do have an account? <Link to="/login"> Login </Link></p>
             </div>
+            <ToastContainer />
         </div>
     )
 }
