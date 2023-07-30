@@ -1,10 +1,10 @@
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth,db,storage } from "../firebase";
+import { auth, db, storage } from "../firebase";
 import add from "../img/addavatar.png";
 import { useState } from "react";
-import {  ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore"; 
-import { useNavigate,Link } from "react-router-dom";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { doc, setDoc } from "firebase/firestore";
+import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -22,8 +22,26 @@ const Register = () => {
         const file = e.target[3].files[0];
         const id = toast.loading("Please wait...")
 
+        // Image validation
+        if (file) {
+            let suffix = file?.name?.split(".")
+            if (suffix.length > 1) {
+                suffix = suffix[suffix.length - 1]
+                if (suffix && !["jpg", "jpeg", "png"].includes(suffix)) {
+                    toast.update(id, {
+                        render: "Please upload valid image and image type should be jpg,jpeg,png",
+                        type: "error", isLoading: false, autoClose: 5000
+                    });
+                    return
+
+                }
+            }
+
+        }
+
+
         try {
-            
+
             const res = await createUserWithEmailAndPassword(auth, email, password)
             const storageRef = ref(storage, displayName);
             const uploadTask = uploadBytesResumable(storageRef, file);
@@ -33,7 +51,7 @@ const Register = () => {
             // 2. Error observer, called on failure
             // 3. Completion observer, called on successful completion
             uploadTask.on('state_changed',
-                
+
             (snapshot) => {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
@@ -54,9 +72,9 @@ const Register = () => {
                   case 'storage/canceled':
                     // User canceled the upload
                     break;
-            
+
                   // ...
-            
+
                   case 'storage/unknown':
                     // Unknown error occurred, inspect error.serverResponse
                     break;
@@ -84,7 +102,7 @@ const Register = () => {
                         toast.update(id, {render: "Your email has been registered successfully", 
                         type: "success", isLoading: false,autoClose:3000});
                         navigate("/");
-                        
+
                     });
                 }
             );
