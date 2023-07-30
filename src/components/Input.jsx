@@ -18,7 +18,7 @@ const Input=()=>{
     const {data} = useContext(ChatContext)
 
     const handleSend = async() =>{
-
+        console.log(img,"images")
         // To upload images
         if (img){
             const storageRef = ref(storage, uuid());
@@ -30,7 +30,6 @@ const Input=()=>{
             (snapshot) => {
                 // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                 const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log('Upload is ' + progress + '% done');
                 switch (snapshot.state) {
                   case 'paused':
                     break;
@@ -116,7 +115,7 @@ const Input=()=>{
             <input type="text" placeholder="Type Something" value={text} onChange={e=>setText(e.target.value)}/>
             <div className="send">
                 {/* <img src={Attach} alt=""/> */}
-                <input type="file" style={{display:"none"}} id="file" value={img} onChange={e=>setImg(e.target.files[0])}/>
+                <input type="file" style={{display:"none"}} id="file" value="" onChange={e=>setImg(e.target.files[0])}/>
                 <label htmlFor="file">
                     <img src={Add} alt=""/>
                 </label>
@@ -124,7 +123,6 @@ const Input=()=>{
             </div>
             
         </div>}
-        {data.user?.displayName || <span className="inputdisable">Please select the user</span>}
         
         </>
 

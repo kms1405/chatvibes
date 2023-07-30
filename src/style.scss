@@ -180,14 +180,12 @@
 
                 
             }
-
-           
-
         }
 
 
         .search{
             border-bottom: 1px solid gray;
+            justify-content: space-between;
             .searchForm{
                 padding: 10px;
                 input{
@@ -195,11 +193,18 @@
                     border: none;
                     color: white;
                     outline: none;
+                    width: 90%;
 
                     &::placeholder{
                         color: lightgray;
                     }
 
+                }
+
+                span{
+                    background-color: rgb(246, 242, 242);
+                    border-radius: 10px;
+                    cursor: pointer;
                 }
             }
         }
