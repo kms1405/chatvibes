@@ -17,12 +17,7 @@ const {data} = useContext(ChatContext)
         <div className="chat">
             <div className="chatInfo">
                 <span>{data.user?.displayName}</span>
-                <div className="chatIcons">
-                <img src={Cam}></img>
-                <img src={Add}></img>
-                <img src={More}></img>
-
-            </div>
+                
             </div>
 
             <Messages/>
