@@ -1,3 +1,12 @@
+<!-- Steps to run project -->
+
+1.Pull the project to your local
+2.goto main folder and run npm install
+3.Start the project using npm start
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -5,6 +5,8 @@ import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 
 
+
+// Search bar component
 const Search = () => {
 
     const [userName, setUserName] = useState("");
@@ -14,6 +16,7 @@ const Search = () => {
     const [allUsers, setAllUsers] = useState([]);
     const [filteredUser,setFilteredUser] = useState([])
 
+    // Fetching users based on serch keyword
     const handleSearch = async (e) => {
         setUserName(e.target.value)
         if (allUsers.length){
@@ -52,6 +55,7 @@ const Search = () => {
     // }
 
 
+    // To select particular user
     const handleSelect = async (user) => {
 
         const combinedId = currentUser.uid > user.uid ? currentUser.uid + user.uid : user.uid + currentUser.uid
@@ -96,6 +100,7 @@ const Search = () => {
     }
 
 
+    // To clear Search bar
     const clearSearch = ()=>{
         setUserName("");
         setAllUsers([])

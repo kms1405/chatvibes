@@ -4,9 +4,12 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 
+// To Show navbar
 const Navbar=()=>{
 
     const {currentUser} = useContext(AuthContext)
+
+    
     return (
         <div className="navbar">
             <span className="logo">ChatVibes</span>

@@ -8,7 +8,7 @@ const Messages=()=>{
     const [messages,setMessages] = useState([]);
     const {data} = useContext(ChatContext)
 
-
+// Fecthing all messages 
     useEffect(()=>{
         const unSub = onSnapshot(doc(db,"chats",data.chatId),(doc)=>{
             doc.exists() && setMessages(doc.data().messages)
@@ -24,8 +24,6 @@ const Messages=()=>{
             {messages.map((m)=>(
                     <Message message={m} key={m.id}/>
             ))}
-            
-            
 
         </div>
     )

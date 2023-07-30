@@ -8,13 +8,12 @@ import { useNavigate,Link } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 
 
-
+// Register  page
 const Register = () => {
     const [error, setError] = useState(false);
     const navigate = useNavigate();
 
-
-
+    // To create user
     const handleSubmit = async (e) => {
         e.preventDefault();
         const displayName = e.target[0].value;

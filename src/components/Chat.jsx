@@ -9,9 +9,9 @@ import { ChatContext } from "../context/ChatContext"
 
 
 
-
+// To show coversation between to users
 const Chat=()=>{
-const {data} = useContext(ChatContext)
+    const {data} = useContext(ChatContext)
 
     return (
         <div className="chat">

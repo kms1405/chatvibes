@@ -1,6 +1,7 @@
 import Chat from "../components/Chat";
 import Sidebar from "../components/Sidebar";
 
+// Home component
 const Home=()=>{
     return (
         <div className="home">
